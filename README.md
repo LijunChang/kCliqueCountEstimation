@@ -32,21 +32,53 @@ $ ./kCliqueC -g {path_to_graph} -k {k_value} -a {algorithm} -e {epsilon}
 -   `-e {epsilon}`: Sets the relative error parameter (epsilon).
 -   `-t {number_of_samples}`: Manually sets the number of samples. This is optional and only used for DPColorPath. Once it is specified, then a fixed number of samples is taken and the given epsilon is ignored; thus, the estimation accuracy is not guaranteed.
 -   `-r {number_of_refinement}`: Manually sets the number of refinement used in our algorithm SR-kCCE.
+-   `-b`: This is optional. Once set, the graph will be loaded from the two binary files (see below for more information on the data format.
 
 ### Examples for reproducing the paper experimental results:
 
-#### Get the exact 9-clique count in com-youtube
+#### 1. Get the exact 12-clique count in com-youtube
 ```sh
-$ ./kCliqueC -g datasets/com-youtube -k 9 -a Pivoter
+$ ./kCliqueC -b -g datasets/com-youtube -k 12 -a Pivoter
 ```
 
-Estimate the number of 9-cliques in the com-youtube dataset with a relative error of 0.001 using our algorithm SR-kCCE.
+The running time and memory usage (reported in Figures 11--13) can be obtained by using the /usr/bin/time command.
 
-Estimate the number of 5-cliques in the com-youtube dataset with a relative error of 0.005 using the existing algorithm DPColorPath
+#### 2. Get the estimated 12-clique count in com-youtube by our algorithm SR-kCCE with a relative error 0.001
 
 ```sh
-$ ./kCliqueC -g datasets/com-youtube -k 5 -a DPColorPath -e 0.005 
+$ ./kCliqueC -b -g datasets/com-youtube -k 12 -a SR-kCCE -e 0.001
 ```
+By comparing the estimated count with the exact count, we can get the actual relative error achieved by SR-kCCE as reported in Figures 7 and 8
+
+The k-clique density mu (reported in Figure 10) can be obtained as (total\_estimate\_cnt - exact\_cnt)/UB.
+
+The running time and memory usage (reported in Figures 11--13) can be obtained by using the /usr/bin/time command.
+
+#### 3. Get the estimated 12-clique count in com-youtube by the existing algorithm DPColorPath with a relative error 0.001
+
+```sh
+$ ./kCliqueC -b -g datasets/com-youtube -k 12 -a DPColorPath -e 0.001
+```
+By comparing the estimated count with the exact count, we can get the actual relative error achieved by DPColorPath as reported in Figure 8
+
+The k-clique density mu (reported in Figure 10) can be obtained as (total\_estimate\_cnt - exact\_cnt)/UB.
+
+The running time and memory usage (reported in Figures 11--13) can be obtained by using the /usr/bin/time command.
+
+#### 4. Get the estimated 12-clique count in com-youtube by the existing algorithm DPColorPath with a fixed number (i.e., 50,000,000) samples
+
+```sh
+$ ./kCliqueC -b -g datasets/com-youtube -k 12 -a DPColorPath -t 50000000
+```
+By comparing the estimated count with the exact count, we can get the actual relative error achieved by DPColorPath5e7 as reported in Figure 8
+
+#### 5. Run our algorithm SR-kCCE with a fixed number (e.g., 1000) of refinement and relative error 0.001
+
+```sh
+$ ./kCliqueC -b -g datasets/com-youtube -k 12 -a SR-kCCE -e 0.001 -r 1000
+```
+
+From the output, we can get the results reported in Figure 14
 
 ## Data Format
 
