@@ -43,9 +43,9 @@ public:
 
 	void init_C(ui degen, ui K_) {
 		K = K_;
-		C = new double[(degen+1)*(K+1)];
+		C = new double[(degen+2)*(K+1)];
 		C[0] = 1;
-		for(ui i = 1;i <= degen;i ++) {
+		for(ui i = 1;i <= degen+1;i ++) {
 			C[i*(K+1)] = 1;
 			if(i <= K) C[i*(K+1)+i] = 1;
 			for(ui j = 1;j < i&&j <= K;j ++) C[i*(K+1)+j] = C[(i-1)*(K+1)+j] + C[(i-1)*(K+1)+j-1];
