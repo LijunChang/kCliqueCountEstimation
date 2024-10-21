@@ -6,6 +6,13 @@ This guide provides instructions for compiling and running our k-Clique count es
 
 This program also includes the implementation of other algorithms, Pivoter and DPColorPath.
 
+If you are using the code, please cite our paper.
+<pre>
+Lijun Chang, Rashmika Gamage, Jeffrey Xu Yu:
+<a href="https://www.vldb.org/pvldb/vol17/p3707-chang.pdf">Efficient k-Clique Count Estimation with Accuracy Guarantee.</a>
+Proc. VLDB Endow. 17(11): 3707-3719 (2024)
+</pre>
+
 ## Compilation
 
 To compile the code, run the following commands:
@@ -119,3 +126,7 @@ $ ./kCliqueC -g datasets/CA-GrQc -k 9 -a SR-kCCE -e 0.001 -b
 ### More Information
 
 For more details on the data format, refer to the [Cohesive Subgraph Book datasets page](https://lijunchang.github.io/Cohesive_subgraph_book/datasets).
+
+## Bug fixes
+
+A bug in Pivotor_matrix.h -> init_C() was fixed on 21 October 2024.
